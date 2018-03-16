@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h2>miRLocator</h2>
+            <p class="lead">请选择需要上传的数据，然后等到运行完数据会下载一个zip压缩包，他就是输出结果。</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 order-md-2 mb-4">
+            </div>
+            <div class="col-md-8 order-md-1">
+                <h4 class="mb-3">Form</h4>
+                <form method="post" class="needs-validation" id="form" enctype="multipart/form-data" novalidate>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">trainingData.txt</span>
+                            </div>
+                            <div class="custom-file">
+                                <input name="trainingData" type="file" class="custom-file-input" id="trainingData">
+                                <label class="custom-file-label" for="trainingData">Choose file</label>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">predictionData.txt</span>
+                            </div>
+                            <div class="custom-file">
+                                <input name="predictionData" type="file" class="custom-file-input" id="predictionData">
+                                <label class="custom-file-label" for="predictionData">Choose file</label>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">predictionData_Annotated.txt</span>
+                            </div>
+                            <div class="custom-file">
+                                <input name="predictionData_Annotated" type="file" class="custom-file-input" id="predictionData_Annotated">
+                                <label class="custom-file-label" for="predictionData_Annotated">Choose file</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">&copy; 2017-2018 Company Name</p>
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a href="#">Privacy</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#">Terms</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#">Support</a>
+                </li>
+            </ul>
+        </footer> -->
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            // $("#form").submit(function() {
+            //     var formData = new FormData($(this)[0]);
+            //     $.ajax({
+            //         url : "",
+            //         type: "POST",
+            //         data : formData,
+            //         processData: false,
+            //         contentType: false,
+            //         success:function(data, textStatus, jqXHR){
+            //             console.log(data);
+            //             console.log(textStatus);
+            //             console.log(jqXHR);
+            //         },
+            //         error: function(jqXHR, textStatus, errorThrown){
+            //             //if fails
+            //         }
+            //     });
+            //     return false;
+            // });
+        });
+    </script>
+</body>
+
+</html>
