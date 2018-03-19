@@ -15,7 +15,7 @@ RNAFoldDic = "/usr/bin/"  ###
 sourceDic = os.path.join(os.getcwd()) + '/'  ###
 ###
 ##result directory, include trainDataFileName, predDataFileName, predDataAnnotFileName         ###
-resultDic = sourceDic + "results/"  ###
+resultDic = sourceDic + "static/results/"  ###
 ###
 ###
 ##a logical parameter indicate whether run cross validation on training dataset

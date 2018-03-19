@@ -52,17 +52,14 @@ def index():
             prediction_data_annotated.save(prediction_data_annotated_path)
         if not os.path.exists(prediction_data_annotated_path):
             raise Exception('没有predictionData_Annotated.txt')
-        lib.start(training_data_path, prediction_data_path,
-                  prediction_data_annotated_path)
-        # zipFile = zipfile.ZipFile(
-        #     os.path.join(upload_path, 'results.zip'), 'w',
-        #     zipfile.ZIP_DEFLATED)
-        # lib.zipdir(os.path.join(lib.sourceDic, 'results'), zipFile)
-        # zipFile.close()
-        # return send_from_directory(
-        #     directory=upload_path, filename='results.zip')
+        try:
+            lib.start(training_data_path, prediction_data_path,
+                      prediction_data_annotated_path)
+        except Exception as e:
+            raise e
         # 获取结果的第一行，然后现实既可以了
 
+        return jsonify()
     else:
         # 显示首页
         return render_template('index.html')
