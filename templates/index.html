@@ -12,9 +12,9 @@
 <body>
     <div class="container">
         <div class="py-5 text-center">
-            <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <img class="d-block mx-auto mb-4" src="/static/logo.png" alt="" width="72" height="72">
             <h2>miRLocator</h2>
-            <p class="lead">请选择需要上传的数据，然后等到运行完数据会下载一个zip压缩包，他就是输出结果。</p>
+            <p class="lead">plant miRNA prediction</p>
         </div>
 
         <div class="row">
@@ -62,20 +62,14 @@
             </div>
         </div>
 
-        <!-- <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-1">&copy; 2017-2018 Company Name</p>
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <!-- <p class="mb-1">&copy; 2017-2018 Company Name</p> -->
             <ul class="list-inline">
                 <li class="list-inline-item">
-                    <a href="#">Privacy</a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#">Terms</a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#">Support</a>
+                    <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142753">Link of this page</a>
                 </li>
             </ul>
-        </footer> -->
+        </footer>
     </div>
 
     <!-- Bootstrap core JavaScript
@@ -107,6 +101,12 @@
             //     });
             //     return false;
             // });
+            $('input[type=file]').on('change',function(){
+                // console.log($(this));
+                var fileName = $(this)[0].files[0].name;
+                console.log(fileName);
+                $(this).next().html(fileName);
+            });
         });
     </script>
 </body>

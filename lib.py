@@ -53,7 +53,19 @@ dpSSFileDic_pred = resultDic + "dp_ss_pred/"
 def start(training_data_path, prediction_data_path,
           prediction_data_annotated_path):
     """开始执行任务"""
-    predModelFileDir = ""  ###
+    global RNAFoldDic
+    global sourceDic
+    global resultDic
+    global cross_validation_flag
+    global trainDataFileName
+    global predDataFileName
+    global predModelFileDir
+    global predDataAnnotFileName
+    global tempFileDir
+    global predResultFileDir
+    global evalResultFileDir
+    global dpSSFileDic_train
+    global dpSSFileDic_pred
 
     source.createDict(dpSSFileDic_train)
     source.createDict(dpSSFileDic_pred)
