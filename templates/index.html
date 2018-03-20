@@ -55,12 +55,16 @@
 
                     </div>
                     <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
                 </form>
             </div>
         </div>
+        <br>
         <div class="row" id="result-div">
             <p id="first-line-context"></p>
+            <a><button class="btn btn-primary btn-lg btn-block" type="button" id="visualize">Visualize</button><a>
+                &nbsp;
+            <a target="_blank" id="download-url"><button class="btn btn-primary btn-lg btn-block" type="button" id="visualize">Download</button></a>
             <a id="result-img-url" target="_blank"><img src="" alt="" id="result-img"></a>
         </div>
         <!-- Modal -->
@@ -100,6 +104,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
         $(function() {
+            $('#visualize').click(
+                function(){
+                    $('#result-img-url').toggle();
+                }
+            );
             $("#form").submit(function() {
                 var formData = new FormData($(this)[0]);
                 $('#exampleModal').modal('show');
@@ -114,15 +123,24 @@
                         $('#first-line-context').html(data.first_line);
                         $('#result-img').attr('src',data.png_path);
                         $('#result-img-url').attr('href',data.png_path);
+                        $('#download-url').attr('href',data.zip_file_path);
+
                         setTimeout(function() {
                             $('#exampleModal').modal('hide');
+                            $('#result-img-url').hide();
                         }, 1500);
+                        // window.location.href = data.zip_file_path;
                     },
                     error: function(jqXHR, textStatus, errorThrown){
                         setTimeout(function() {
                             $('#exampleModal').modal('hide');
+                            $('#result-img-url').hide();
                         }, 1500);
-                        alert(jqXHR.responseJSON.message);
+                        if(jqXHR){
+                            alert(jqXHR.responseJSON.message);
+                        }else{
+                            alert('未知错误');
+                        }
                     }
                 });
                 return false;

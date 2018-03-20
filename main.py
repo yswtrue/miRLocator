@@ -62,11 +62,18 @@ def index():
         if not os.path.exists(prediction_data_annotated_path):
             raise Exception('没有predictionData_Annotated.txt')
 
-        lib.resultDic = lib.resultDic + now_datetime + '/'
+        lib.resultDic = lib.sourceDic + "static/results/" + now_datetime + '/'
 
         # 开始执行文件
         lib.start(training_data_path, prediction_data_path,
                   prediction_data_annotated_path)
+
+        # 打包结果
+        zip_file_path = os.path.join(lib.resultDic, 'results.zip')
+        zipFile = zipfile.ZipFile(zip_file_path, 'w', zipfile.ZIP_DEFLATED)
+        lib.zipdir(lib.resultDic, zipFile)
+        zipFile.close()
+
         with open(lib.resultDic + 'miRLocator_predResults.txt',
                   'r') as result_file:
             first_line = result_file.readline()
@@ -85,10 +92,15 @@ def index():
                     raise Exception('没有安装imagemagick')
                 raise e
 
-            return jsonify({'first_line': first_line, 'png_path': png_path})
-        # 获取结果的第一行，然后现实既可以了
+            return jsonify({
+                'first_line':
+                first_line,
+                'png_path':
+                '/static/results/' + now_datetime + '/dp_ss_pred/result.png',
+                'zip_file_path':
+                '/static/results/' + now_datetime + '/results.zip',
+            })
 
-        return jsonify()
     else:
         # 显示首页
         return render_template('index.html')
