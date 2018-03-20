@@ -21,7 +21,8 @@
 `vi /etc/nginx/conf.d/mirlocator.conf`
 
 添加如下内容：
-
+{example.com} 为你的域名
+{/var/www/example.com} 为你的项目路径
 ```
 server {
 	listen 80;
