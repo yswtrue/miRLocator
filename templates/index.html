@@ -114,14 +114,15 @@
                         $('#first-line-context').html(data.first_line);
                         $('#result-img').attr('src',data.png_path);
                         $('#result-img-url').attr('href',data.png_path);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown){
-                        alert(jqXHR.responseJSON.message);
-                    },
-                    always: function(jqXHR, textStatus, errorThrown){
                         setTimeout(function() {
                             $('#exampleModal').modal('hide');
                         }, 1500);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        setTimeout(function() {
+                            $('#exampleModal').modal('hide');
+                        }, 1500);
+                        alert(jqXHR.responseJSON.message);
                     }
                 });
                 return false;
