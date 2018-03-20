@@ -21,8 +21,11 @@
 `vi /etc/nginx/conf.d/mirlocator.conf`
 
 添加如下内容：
+
 {example.com} 为你的域名
+
 {/var/www/example.com} 为你的项目路径
+
 ```
 server {
 	listen 80;
@@ -81,4 +84,5 @@ stderr_logfile=/var/log/mirlocator_err.log
 ````
 
 `service nginx restart`
+
 `service supervisor restart`
