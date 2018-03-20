@@ -71,24 +71,21 @@ def index():
                   'r') as result_file:
             first_line = result_file.readline()
             mi_rna = first_line.split('\t')[0]
+            png_path = '{path}/result.png'.format(
+                path=os.path.join(lib.resultDic, 'dp_ss_pred'))
             from subprocess import call
             try:
                 call([
                     'convert', '{path}/{file_name}'.format(
                         path=os.path.join(lib.resultDic, 'dp_ss_pred'),
-                        file_name=mi_rna + '_dp.ps'),
-                    '{path}/result.png'.format(
-                        path=os.path.join(lib.resultDic, 'dp_ss_pred'))
+                        file_name=mi_rna + '_dp.ps'), png_path
                 ])
             except OSError as e:
                 if e.errno == os.errno.ENOENT:
                     raise Exception('没有安装imagemagick')
                 raise e
 
-            return jsonify({
-                'first_line': first_line,
-                'png_path': '/static/results/dp_ss_pred/result.png'
-            })
+            return jsonify({'first_line': first_line, 'png_path': png_path})
         # 获取结果的第一行，然后现实既可以了
 
         return jsonify()
