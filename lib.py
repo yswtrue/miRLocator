@@ -35,19 +35,6 @@ predModelFileDir = ""  ###
 ##If the file name is defined, miRLocator will evaluate the prediction results                 ###
 ##based on annotation infomation in this file                                                  ###
 predDataAnnotFileName = "predictionData_Annotated.txt"  ###
-##################################################################################################
-
-#####################################################################################################################################
-#####################################################################################################################################
-#keep this command, temp file used to record temporary results
-tempFileDir = resultDic + "tempResult.txt"
-
-predResultFileDir = resultDic + "miRLocator_predResults.txt"
-evalResultFileDir = resultDic + "miRLocator_evalResults.txt"
-
-#create file directories for recording dp_ss files for training and prediction
-dpSSFileDic_train = resultDic + "dp_ss_train/"
-dpSSFileDic_pred = resultDic + "dp_ss_pred/"
 
 
 def start(training_data_path, prediction_data_path,
@@ -62,10 +49,15 @@ def start(training_data_path, prediction_data_path,
     global predModelFileDir
     global predDataAnnotFileName
     global tempFileDir
-    global predResultFileDir
-    global evalResultFileDir
-    global dpSSFileDic_train
-    global dpSSFileDic_pred
+    #keep this command, temp file used to record temporary results
+    tempFileDir = resultDic + "tempResult.txt"
+
+    predResultFileDir = resultDic + "miRLocator_predResults.txt"
+    evalResultFileDir = resultDic + "miRLocator_evalResults.txt"
+
+    #create file directories for recording dp_ss files for training and prediction
+    dpSSFileDic_train = resultDic + "dp_ss_train/"
+    dpSSFileDic_pred = resultDic + "dp_ss_pred/"
 
     source.createDict(dpSSFileDic_train)
     source.createDict(dpSSFileDic_pred)

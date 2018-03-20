@@ -3,17 +3,18 @@ version:              '2'
 services:
     applications:
       image:          alpine:3.4
+      command:        ls
       volumes:
-        - ../Code:/var/www
+        - ..:/var/www
 
     mirlocator:
         build:
             context:  ./mirlocator
-        working_dir:  /var/www/mirlocator
+        working_dir:  /var/www
         environment:
             - FLASK_APP=main.py
             - FLASK_DEBUG=1
-        command: flask run --host=0.0.0.0
+        command:      flask run --host=0.0.0.0
         volumes_from:
             - applications
         ports:

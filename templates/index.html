@@ -18,9 +18,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4 order-md-2 mb-4">
-            </div>
-            <div class="col-md-8 order-md-1">
+            <div class="col-md-12 order-md-1">
                 <h4 class="mb-3">Form</h4>
                 <form method="post" class="needs-validation" id="form" enctype="multipart/form-data" novalidate>
 
@@ -61,12 +59,32 @@
                 </form>
             </div>
         </div>
+        <div class="row" id="result-div">
+            <p id="first-line-context"></p>
+            <a id="result-img-url" target="_blank"><img src="" alt="" id="result-img"></a>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                数据请求中，请稍等
+              </div>
+            </div>
+          </div>
+        </div>
 
         <footer class="my-5 pt-5 text-muted text-center text-small">
             <!-- <p class="mb-1">&copy; 2017-2018 Company Name</p> -->
             <ul class="list-inline">
                 <li class="list-inline-item">
-                    <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142753">Link of this page</a>
+                    <a target="_blank" href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142753">Link of this page</a>
                 </li>
             </ul>
         </footer>
@@ -82,25 +100,32 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
         $(function() {
-            // $("#form").submit(function() {
-            //     var formData = new FormData($(this)[0]);
-            //     $.ajax({
-            //         url : "",
-            //         type: "POST",
-            //         data : formData,
-            //         processData: false,
-            //         contentType: false,
-            //         success:function(data, textStatus, jqXHR){
-            //             console.log(data);
-            //             console.log(textStatus);
-            //             console.log(jqXHR);
-            //         },
-            //         error: function(jqXHR, textStatus, errorThrown){
-            //             //if fails
-            //         }
-            //     });
-            //     return false;
-            // });
+            $("#form").submit(function() {
+                var formData = new FormData($(this)[0]);
+                $('#exampleModal').modal('show');
+                $.ajax({
+                    url : "",
+                    type: "POST",
+                    data : formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success:function(data, textStatus, jqXHR){
+                        $('#first-line-context').html(data.first_line);
+                        $('#result-img').attr('src',data.png_path);
+                        $('#result-img-url').attr('href',data.png_path);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert(jqXHR.responseJSON.message);
+                    },
+                    always: function(jqXHR, textStatus, errorThrown){
+                        setTimeout(function() {
+                            $('#exampleModal').modal('hide');
+                        }, 1500);
+                    }
+                });
+                return false;
+            });
             $('input[type=file]').on('change',function(){
                 // console.log($(this));
                 var fileName = $(this)[0].files[0].name;

@@ -12,3 +12,4 @@ RUN pip install scikit-learn
 RUN pip install flask
 RUN pip install numpy
 RUN pip install scipy
+RUN apt-get install -y imagemagick
