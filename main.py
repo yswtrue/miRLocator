@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-# @app.errorhandler(Exception)
+@app.errorhandler(Exception)
 def handle_invalid_usage(error):
     status_code = error.status_code if hasattr(error, 'status_code') else 500
     response = jsonify({'code': status_code, 'message': error.message})
