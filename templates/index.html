@@ -64,8 +64,12 @@
             <p id="first-line-context"></p>
             <a><button class="btn btn-primary btn-lg btn-block" type="button" id="visualize">Visualize</button><a>
                 &nbsp;
-            <a target="_blank" id="download-url"><button class="btn btn-primary btn-lg btn-block" type="button" id="visualize">Download</button></a>
-            <a id="result-img-url" target="_blank"><img src="" alt="" id="result-img"></a>
+            <a target="_blank" id="download-url"><button class="btn btn-primary btn-lg btn-block" type="button" id="download">Download</button></a>
+            <div id="result-div-sub">
+                <ul id="result-ul">
+
+                </ul>
+            </div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -106,7 +110,7 @@
         $(function() {
             $('#visualize').click(
                 function(){
-                    $('#result-img-url').toggle();
+                    $('#result-div-sub').toggle();
                 }
             );
             $("#form").submit(function() {
@@ -120,21 +124,25 @@
                     processData: false,
                     contentType: false,
                     success:function(data, textStatus, jqXHR){
-                        $('#first-line-context').html(data.first_line);
-                        $('#result-img').attr('src',data.png_path);
-                        $('#result-img-url').attr('href',data.png_path);
                         $('#download-url').attr('href',data.zip_file_path);
+
+                        $('#result-ul').html('');
+                        for (var line in data.lines) {
+                            if (data.lines.hasOwnProperty(line)) {
+                                $('#result-ul').append('<li><a target="_blank" href="'+data.lines[line].html_url+'">'+data.lines[line].mi_rna+'</a></li>');
+                            }
+                        }
 
                         setTimeout(function() {
                             $('#exampleModal').modal('hide');
-                            $('#result-img-url').hide();
+                            $('#result-div-sub').hide();
                         }, 1500);
                         // window.location.href = data.zip_file_path;
                     },
                     error: function(jqXHR, textStatus, errorThrown){
                         setTimeout(function() {
                             $('#exampleModal').modal('hide');
-                            $('#result-img-url').hide();
+                            $('#result-div-sub').hide();
                         }, 1500);
                         if(jqXHR){
                             alert(jqXHR.responseJSON.message);

@@ -93,12 +93,12 @@ def writeLinesToFile( lineList, endFlag, fileDir ):
 	for curLine in lineList:
 		fpw.write( curLine + endFlag )
 	fpw.close()
-#end def 
+#end def
 
 
 
 ##fold pre-miRNAs sequences using RNAfold
-def foldPreMiRNASeq( preMiRNADic, RNAfoldDic, tmpFileDir, RNAfoldResDir ):
+def foldPreMiRNASeq( preMiRNADic, RNAfoldDic, tmpFileDir, RNAfoldResDir, path=None ):
   fpw = open(tmpFileDir, "w")
   for curPreMiRNAID in preMiRNADic.keys():
     curPreMiRNASeq = preMiRNADic[curPreMiRNAID]
@@ -106,7 +106,7 @@ def foldPreMiRNASeq( preMiRNADic, RNAfoldDic, tmpFileDir, RNAfoldResDir ):
   #end for 
   fpw.close()
   
-  foldCommand = RNAfoldDic + "RNAfold -p -d2 --noLP < " + tmpFileDir + " > " + RNAfoldResDir
+  foldCommand = ('cd {};'.format(path) if path else None) + RNAfoldDic + "RNAfold -p -d2 --noLP < " + tmpFileDir + " > " + RNAfoldResDir
   res = os.system(foldCommand)
   if( res != 0 ):
     print "Error to run RNAfold using the command:", foldCommand
@@ -193,22 +193,22 @@ def checkFileForTraining(fileDir, RNAfoldDic, sourceDic, dpSSFileDic, dpSSFlag =
       #structure required
       tmpFileDir = dpSSFileDic + "tmp_seq.txt"
       RNAfileResDir = dpSSFileDic + "tmp_struct.txt"
-      foldPreMiRNASeq(preMiRNADic, RNAfoldDic, tmpFileDir, RNAfileResDir )
+      foldPreMiRNASeq(preMiRNADic, RNAfoldDic, tmpFileDir, RNAfileResDir,dpSSFileDic )
       structDic = parseRNAfoldResult(RNAfileResDir)
       #removeFile(tmpFileDir)
       #removeFile(RNAfileResDir)
     
       ##copy dp_ps, ss_ps file
-      if( dpSSFlag == True ):
-	mvCommand = "mv " + sourceDic + "*_dp.ps " + dpSSFileDic
-	runCommand(mvCommand)
-	mvCommand = "mv " + sourceDic + "*_ss.ps " + dpSSFileDic
-	runCommand(mvCommand)
-      else:
-	rmCommand = "rm " + sourceDic + "*_dp.ps " + dpSSFileDic
-	runCommand(rmCommand)
-	rmCommand = "rm " + sourceDic + "*_ss.ps " + dpSSFileDic
-	runCommand(rmCommand)
+    #   if( dpSSFlag == True ):
+	# mvCommand = "mv " + sourceDic + "*_dp.ps " + dpSSFileDic
+	# runCommand(mvCommand)
+	# mvCommand = "mv " + sourceDic + "*_ss.ps " + dpSSFileDic
+	# runCommand(mvCommand)
+    #   else:
+	# rmCommand = "rm " + sourceDic + "*_dp.ps " + dpSSFileDic
+	# runCommand(rmCommand)
+	# rmCommand = "rm " + sourceDic + "*_ss.ps " + dpSSFileDic
+	# runCommand(rmCommand)
       #end else
 	
       
@@ -273,22 +273,22 @@ def checkFileForPrediction(fileDir, RNAfoldDic, sourceDic, dpSSFileDic, dpSSFlag
       #structure required
       tmpFileDir = dpSSFileDic + "tmp_seq.txt"
       RNAfileResDir = dpSSFileDic + "tmp_struct.txt"
-      foldPreMiRNASeq(preMiRNADic, RNAfoldDic, tmpFileDir, RNAfileResDir )
+      foldPreMiRNASeq(preMiRNADic, RNAfoldDic, tmpFileDir, RNAfileResDir,dpSSFileDic )
       structDic = parseRNAfoldResult(RNAfileResDir)
       #removeFile(tmpFileDir)
       #removeFile(RNAfileResDir)
     
       ##copy dp_ps, ss_ps file
-      if( dpSSFlag == True ):
-	mvCommand = "mv " + sourceDic + "*_dp.ps " + dpSSFileDic
-	runCommand(mvCommand)
-	mvCommand = "mv " + sourceDic + "*_ss.ps " + dpSSFileDic
-	runCommand(mvCommand)
-      else:
-	rmCommand = "rm " + sourceDic + "*_dp.ps " + dpSSFileDic
-	runCommand(rmCommand)
-	rmCommand = "rm " + sourceDic + "*_ss.ps " + dpSSFileDic
-	runCommand(rmCommand)
+    #   if( dpSSFlag == True ):
+	# mvCommand = "mv " + sourceDic + "*_dp.ps " + dpSSFileDic
+	# runCommand(mvCommand)
+	# mvCommand = "mv " + sourceDic + "*_ss.ps " + dpSSFileDic
+	# runCommand(mvCommand)
+    #   else:
+	# rmCommand = "rm " + sourceDic + "*_dp.ps " + dpSSFileDic
+	# runCommand(rmCommand)
+	# rmCommand = "rm " + sourceDic + "*_ss.ps " + dpSSFileDic
+	# runCommand(rmCommand)
       #end else
 	
       

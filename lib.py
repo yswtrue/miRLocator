@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os, sys
 import source
-
+import zipfile
 #end
 
 ##################################################################################################
@@ -132,8 +132,13 @@ def start(training_data_path, prediction_data_path,
                                     predResultFileDir, evalResultFileDir)
 
 
-def zipdir(path, ziph):
-    # ziph is zipfile handle
+def zipdir(path, zip_path):
+    zipFile = zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED)
+    # zip_path: is zipfile handle
     for root, dirs, files in os.walk(path):
         for file in files:
-            ziph.write(os.path.join(root, file))
+            if os.path.join(root, file) != zip_path:
+                zipFile.write(
+                    os.path.join(root, file),
+                    arcname=os.path.relpath(os.path.join(root, file), path))
+    zipFile.close()
