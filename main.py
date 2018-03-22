@@ -24,6 +24,26 @@ def handle_invalid_usage(error):
     return response
 
 
+# @app.route('/test', methods=['GET', 'POST'])
+# def test():
+#     tmp = {
+#         'mi_rna':
+#         'dddd',
+#         'lines':
+#         ['ddfdf', 'fsdfsdfsf', 'dfsdfsdfsf', 'fdfsfsf', 'dfsfdsf', 'dfsfdf'],
+#         'img_url':
+#         '{}.png'.format('mi_rna'),
+#         'html_url':
+#         '/' + 'html_url',
+#     }
+#     line_maps = [
+#         '第一行'.decode('utf-8'), '第二行'.decode('utf-8'), '第三行'.decode('utf-8'),
+#         '第四行'.decode('utf-8')
+#     ]
+#     page_param = dict(line_maps=line_maps, **tmp)
+#     return render_template('pages.html', **page_param)
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -96,8 +116,14 @@ def index():
                     'img_url': '{}.png'.format(mi_rna),
                     'html_url': '/' + html_url
                 }
+
+                line_maps = [
+                    '第一行'.decode('utf-8'), '第二行'.decode('utf-8'),
+                    '第三行'.decode('utf-8'), '第四行'.decode('utf-8')
+                ]
+                page_param = dict(line_maps=line_maps, **tmp)
                 # 输出html
-                context = render_template('pages.html', **tmp)
+                context = render_template('pages.html', **page_param)
                 try:
                     with open(html_path, 'w') as html:
                         html.write(context.encode('utf-8'))
@@ -110,7 +136,7 @@ def index():
                     call([
                         'convert', '{path}/{file_name}'.format(
                             path=os.path.join(lib.resultDic, 'dp_ss_pred'),
-                            file_name=mi_rna + '_dp.ps'), png_path
+                            file_name=mi_rna + '_ss.ps'), png_path
                     ])
                 except OSError as e:
                     if e.errno == os.errno.ENOENT:
